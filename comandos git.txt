@@ -1,0 +1,17 @@
+git remote add origin caminho-do-repositorio
+
+git add .
+git commit -m "mensagem"
+git push origin nome-da-branch
+
+git checkout -b nome-da-nova-branch
+
+git merge: junta as branchs
+git merge nome-da-branch
+
+git pull origin nome-da-branch: puxa os dados do repositorio
+
+git clone  
+
+Site para mais explicações:
+https://gist.github.com/leocomelli/2545add34e4fec21ec16

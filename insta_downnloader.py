@@ -6,14 +6,14 @@ import win32api
 cl = Client()
 
 class insta_D():  
-    def login(user,key):
+    def Login(user,key):
         try:
             login = cl.login(user, key)
             return(True)
         except Exception as e:
             return(e)
 
-    def getImgaes(hashtags,qtd): 
+    def ByHashtag(hashtags,qtd): 
 
         # hashtag1 = cl.hashtag_info(hashtags)
         # qtd = hashtag1.dict()
@@ -51,7 +51,7 @@ class insta_D():
                 hashtags + "_fotos_" + str(i + 1)), folder=photo_folder)
             print(f"Imagem {i+1} da {hashtags} re-baixada")
    
-    def printingImages():
+    def Print_out():
 
         # print("Imprimindo imagem")
 

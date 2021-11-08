@@ -1,0 +1,30 @@
+<MyGrid>
+    user: user
+    key: key
+
+    GridLayout:
+        
+        cols: 1
+        size: root.width, root.height
+
+        GridLayout:
+            cols: 2
+            
+            Label:
+                text: "Insira o usuario"
+            
+            TextInput:
+                id: user
+                multiline: False
+            
+            Label:
+                text: "Email"
+            
+            TextInput:
+                id: key
+                
+                multiline: False
+        Button:
+            text: "Login"
+            on_press: root.Login()
+            

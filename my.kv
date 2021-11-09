@@ -1,30 +1,51 @@
-<MyGrid>
+WindowManager:
+    LoginScreen:
+    MenuScreen:
+
+<LoginScreen>:
+    name: "login"
+    
     user: user
     key: key
 
     GridLayout:
         
         cols: 1
-        size: root.width, root.height
+        size_hint:(0.8,0.8)
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        
+        Image:
+            source: 'stollker logo.png'
+            size: self.texture_size
 
         GridLayout:
             cols: 2
             
             Label:
+                pos_hint: {"top":3}
                 text: "Insira o usuario"
-            
+                font_size: 22
+                color: "#00FFCE"
             TextInput:
                 id: user
                 multiline: False
-            
+                size_hint: (1.8,1)
+                font_size: 22
             Label:
+                pos_hint: {"top":3}
                 text: "Email"
-            
+                font_size: 22
+                color: "#00FFCE"
             TextInput:
                 id: key
-                
+                pos_hint: {"top":3}
+                size_hint: (1.8,0.5)
                 multiline: False
+                font_size: 22
         Button:
+            font_size: 22
+            pos_hint: {"top":3}
             text: "Login"
+            size_hint: (0.5,0.3)
             on_press: root.Login()
             

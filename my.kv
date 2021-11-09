@@ -2,50 +2,69 @@ WindowManager:
     LoginScreen:
     MenuScreen:
 
-<LoginScreen>:
+<LoginScreen>:          
     name: "login"
-    
-    user: user
-    key: key
+    # user: user
+    # key: key
 
-    GridLayout:
-        
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    FloatLayout:
         cols: 1
-        size_hint:(0.8,0.8)
-        pos_hint: {"center_x": 0.5, "center_y": 0.5}
-        
+        # size_hint:(0.8,0.8)
+        # pos_hint: {"center_x": 0.5, "center_y": 0.5}
+ 
         Image:
             source: 'stollker logo.png'
-            size: self.texture_size
-
-        GridLayout:
-            cols: 2
-            
+            size_hint: 0.45,0.45
+            pos_hint: {"x":0.27,"y":0.5}            
+        FloatLayout:
             Label:
-                pos_hint: {"top":3}
-                text: "Insira o usuario"
-                font_size: 22
+                text: "Insira o usuario:"
+                font_size: 25
                 color: "#00FFCE"
+                pos_hint:{"x": -0.1, "y":0.30}
+                size_hint:0.8, 0.2          
             TextInput:
                 id: user
                 multiline: False
-                size_hint: (1.8,1)
+                size_hint: (0.35,0.058)
+                pos_hint:{"x":0.5, "y":0.37}
                 font_size: 22
             Label:
-                pos_hint: {"top":3}
-                text: "Email"
-                font_size: 22
+                text: "Insira a senha:"
+                font_size: 25
                 color: "#00FFCE"
+                pos_hint:{"x": -0.1, "y":0.20}
+                size_hint:0.8, 0.2          
             TextInput:
-                id: key
-                pos_hint: {"top":3}
-                size_hint: (1.8,0.5)
+                id: user
                 multiline: False
+                size_hint: (0.35,0.058)
+                pos_hint:{"x":0.5, "y":0.27}
                 font_size: 22
         Button:
             font_size: 22
-            pos_hint: {"top":3}
             text: "Login"
-            size_hint: (0.5,0.3)
-            on_press: root.Login()
+            size_hint: (0.4,0.09)
+            pos_hint:{"x":0.32, "y":0.1}
+            on_press: root.Login()    
+
+
+        #     Label:
+        #         pos_hint: {"top":3}
+        #         text: "Email"
+        #         font_size: 22
+        #         color: "#00FFCE"
+        #     TextInput:
+        #         id: key
+        #         pos_hint: {"top":3}
+        #         size_hint: (1.8,0.5)
+        #         multiline: False
+        #         font_size: 22
+
             

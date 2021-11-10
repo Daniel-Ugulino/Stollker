@@ -1,0 +1,119 @@
+WindowManager:
+    LoginScreen:
+    InputScreen:
+    ImamgesScreen:
+<LoginScreen>:          
+    name: "login"
+    user: user
+    key: key
+
+    # canvas.before:
+    #     Color:
+    #         rgba: 1, 1, 1, 1
+    #     Rectangle:
+    #         pos: self.pos
+    #         size: self.size
+    FloatLayout:
+        cols: 1
+        # size_hint:(0.8,0.8)
+        # pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        MDLabel:
+            font_style: "H4"
+            text: "STOLLKER"
+            halign: "center"
+            pos_hint: {"y":0.43}  
+        Image:
+            source: 'stollker logo.png'
+            size_hint: 0.35,0.35
+            pos_hint: {"center_x":0.5,"y":0.48}            
+        
+        FloatLayout:
+
+            MDTextField:
+                icon_right: "account"  
+                hint_text: "Insira seu usuario do Insta"
+                id: user
+                size_hint: (0.4,0.09)
+                pos_hint:{"center_x":0.5, "y":0.35}
+                
+            MDTextField:
+                hint_text: "Insira sua senha"
+                id: key
+                size_hint: (0.4,0.09)
+                pos_hint:{"center_x":0.5, "y":0.25}
+
+        MDRoundFlatIconButton:
+            icon: "login"
+            font_size: 22
+            text: "Login"
+            size_hint: (0.4,0.09)
+            pos_hint:{"center_x":0.5, "y":0.1}
+            on_release: root.Login()    
+
+
+
+
+
+<InputScreen>:
+    name:"input"
+
+    # canvas.before:
+    #     Color:
+    #         rgba: 1, 1, 1, 1
+    #     Rectangle:
+    #         pos: self.pos
+    #         size: self.size
+    FloatLayout:
+        cols: 1
+        
+        Image:
+            source: 'stollker logo.png'
+            size_hint: 0.35,0.35
+            pos_hint: {"center_x":0.5,"y":0.63}            
+        FloatLayout:
+
+            MDTextField:
+                hint_text: "Insira a hashtag desejada"
+                icon_right: "instagram"
+                id: user
+                size_hint: (0.6,0.09)
+                pos_hint:{"center_x":0.5, "y":0.53}
+                
+            MDTextField:
+                hint_text: "Insira a data da publicação hashtag"
+                id: key
+                size_hint: (0.6,0.09)
+                pos_hint:{"center_x":0.5, "y":0.43}
+
+            MDTextField:
+                hint_text: "Insira quantidade de posts"
+                id: key
+                size_hint: (0.6,0.09)
+                pos_hint:{"center_x":0.5, "y":0.33} 
+
+            MDRoundFlatIconButton:
+                font_size: 20                
+                text: "Escolha a imagem de fundo"
+                icon:"folder"                
+                size_hint: (0.4,0.08)
+                pos_hint:{"center_x":0.5, "y":0.20}
+
+        FloatLayout:
+
+            MDRoundFlatIconButton:
+                font_size: 20
+                text: "Voltar"
+                icon: "arrow-left-bold-circle-outline"
+                size_hint: (0.16,0.09)
+                pos_hint:{"center_x":0.4, "y":0.05}
+            MDRoundFlatIconButton:
+                font_size: 20
+                icon: "arrow-right-bold-circle-outline"
+                text: "Avançar"
+                size_hint: (0.16,0.09)
+                pos_hint:{"center_x":0.6, "y":0.05}
+   
+
+<ImamgesScreen>:
+    name:"images"
+            

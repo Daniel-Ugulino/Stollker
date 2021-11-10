@@ -3,12 +3,10 @@ from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
-from kivy.uix.label import Label
 from insta_downnloader import insta_D
+from PIL import Image 
 
 # https://www.techwithtim.net/tutorials/kivy-tutorial/floatlayout/
-
-
 
 class LoginScreen(Screen): 
     user = ObjectProperty(None)
@@ -17,21 +15,41 @@ class LoginScreen(Screen):
     def Login(self):
         user = self.user.text
         key = self.key.text
-        sla = insta_D.Login(user,key)
-        print(sla)
-        return(sla)
+        login = insta_D.Login(user,key)
+        if (login==True):
+            sm.current = "input"
+        else:
+            print(login)
 
-class MenuScreen(Screen):
+class InputScreen(Screen):
+    hashtag = ObjectProperty(None)
+    date = ObjectProperty(None)
+    qtd = ObjectProperty(None)
+
+    def FileInput():
+        pass
+
+    pass
+
+class ImamgesScreen(Screen):
     pass
 
 class WindowManager(ScreenManager):
     pass
 
+sm = WindowManager()
 
 class MyApp(MDApp):
-    def __init__(self, **kwargs):
-        self.title = "My Material Application"
-        super().__init__(**kwargs)
+      def build(self):
+        kv = Builder.load_file("desing.kv")
+               
+        screens = [LoginScreen(name="login"),InputScreen(name="input"),ImamgesScreen(name="images")]
+        for screen in screens:
+            sm.add_widget(screen)
+
+        sm.current = "login"
+
+        return sm
 
 if __name__ == "__main__":
     MyApp().run()

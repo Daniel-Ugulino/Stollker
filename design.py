@@ -1,4 +1,4 @@
-from kivy.app import App
+from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty
@@ -7,6 +7,8 @@ from kivy.uix.label import Label
 from insta_downnloader import insta_D
 
 # https://www.techwithtim.net/tutorials/kivy-tutorial/floatlayout/
+
+
 
 class LoginScreen(Screen): 
     user = ObjectProperty(None)
@@ -25,12 +27,11 @@ class MenuScreen(Screen):
 class WindowManager(ScreenManager):
     pass
 
-kv = Builder.load_file("my.kv")
 
-class MyApp(App):
-    def build(self):
-        return kv
-
+class MyApp(MDApp):
+    def __init__(self, **kwargs):
+        self.title = "My Material Application"
+        super().__init__(**kwargs)
 
 if __name__ == "__main__":
     MyApp().run()

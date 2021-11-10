@@ -17,42 +17,35 @@ WindowManager:
         cols: 1
         # size_hint:(0.8,0.8)
         # pos_hint: {"center_x": 0.5, "center_y": 0.5}
- 
+        MDLabel:
+            font_style: "H4"
+            text: "STOLLKER"
+            halign: "center"
+            pos_hint: {"y":0.43}  
         Image:
             source: 'stollker logo.png'
-            size_hint: 0.45,0.45
-            pos_hint: {"x":0.27,"y":0.5}            
+            size_hint: 0.35,0.35
+            pos_hint: {"x":0.33,"y":0.48}            
         FloatLayout:
-            Label:
-                text: "Insira o usuario:"
-                font_size: 25
-                color: "#00FFCE"
-                pos_hint:{"x": -0.1, "y":0.30}
-                size_hint:0.8, 0.2          
-            TextInput:
+
+            MDTextField:
+                hint_text: "Insira seu usuario do Insta"
                 id: user
-                multiline: False
-                size_hint: (0.35,0.058)
-                pos_hint:{"x":0.5, "y":0.37}
-                font_size: 22
-            Label:
-                text: "Insira a senha:"
-                font_size: 25
-                color: "#00FFCE"
-                pos_hint:{"x": -0.1, "y":0.20}
-                size_hint:0.8, 0.2          
-            TextInput:
+                size_hint: (0.4,0.09)
+                pos_hint:{"x":0.32, "y":0.35}
+                
+            MDTextField:
+                hint_text: "Insira sua senha"
                 id: user
-                multiline: False
-                size_hint: (0.35,0.058)
-                pos_hint:{"x":0.5, "y":0.27}
-                font_size: 22
-        Button:
+                size_hint: (0.4,0.09)
+                pos_hint:{"x":0.32, "y":0.25}
+
+        MDRoundFlatButton:
             font_size: 22
             text: "Login"
             size_hint: (0.4,0.09)
             pos_hint:{"x":0.32, "y":0.1}
-            on_press: root.Login()    
+            on_release: root.Login()    
 
 
         #     Label:

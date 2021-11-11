@@ -23,34 +23,42 @@ class insta_D():
         # qtd = int(input("Insira a quantidade de posts desejados:"))
         print("Coletando imagens")
         urls = []
-        data = cl.hashtag_medias_recent(hashtags, amount=qtd)
-        for i in range(len(data)):
-            data_obj = data[i].dict()
-            data_url = str(data_obj["thumbnail_url"])
-            if(data_url != "None"):
-                data_url = data_url.replace("HttpUrl(", "")
-                data_url = data_url.replace("'", "")
-                urls.append(data_url)
-            elif(data_url == "None"):
-                res = data_obj["resources"]
-                for j in range(len(res)):
-                    res1 = res[j]
-                    urls.append(str(res1["thumbnail_url"]))
+        try:
+            data = cl.hashtag_medias_recent(hashtags, amount=qtd)
 
-        # count = 0
-        photo_folder = "./temp_" + hashtags
+            for i in range(len(data)):
+                data_obj = data[i].dict()
+                data_url = str(data_obj["thumbnail_url"])
+                if(data_url != "None"):
+                    data_url = data_url.replace("HttpUrl(", "")
+                    data_url = data_url.replace("'", "")
+                    urls.append(data_url)
+                elif(data_url == "None"):
+                    res = data_obj["resources"]
+                    for j in range(len(res)):
+                        res1 = res[j]
+                        urls.append(str(res1["thumbnail_url"]))
 
-        if(os.path.isdir(photo_folder) == False):
-            # count += 1
-            # photo_folder = "./temp_" + str(count) + "_" + hashtags
-            os.makedirs(photo_folder)
+            # count = 0
+            photo_folder = "./temp_" + hashtags
+
+            if(os.path.isdir(photo_folder) == False):
+                # count += 1
+                # photo_folder = "./temp_" + str(count) + "_" + hashtags
+                os.makedirs(photo_folder)
 
 
-        for i in range(len(urls)):
-            cl.photo_download_by_url(url=urls[i], filename=(
-                hashtags + "_fotos_" + str(i + 1)), folder=photo_folder)
-            print(f"Imagem {i+1} da {hashtags} re-baixada")
-   
+            for i in range(len(urls)):
+                cl.photo_download_by_url(url=urls[i], filename=(
+                    hashtags + "_fotos_" + str(i + 1)), folder=photo_folder)
+                print(f"Imagem {i+1} da {hashtags} baixada")
+            
+            return(True)
+
+        except Exception as e:
+            print(e)
+
+
     def Print_out():
 
         # print("Imprimindo imagem")

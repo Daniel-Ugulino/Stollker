@@ -1,102 +1,93 @@
-WindowManager:
-    LoginScreen:
-    InputScreen:
-    ImamgesScreen:
 <LoginScreen>:          
     name: "login"
     user: user
     key: key
 
-    # canvas.before:
-    #     Color:
-    #         rgba: 1, 1, 1, 1
-    #     Rectangle:
-    #         pos: self.pos
-    #         size: self.size
     FloatLayout:
         cols: 1
-        # size_hint:(0.8,0.8)
-        # pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
         MDLabel:
+            theme_text_color: "Custom"
+            text_color: (0, 1, 0, .4)
             font_style: "H4"
             text: "STOLLKER"
             halign: "center"
             pos_hint: {"y":0.43}  
         Image:
             source: 'stollker logo.png'
-            size_hint: 0.35,0.35
+            size_hint: (0.35,0.35)
             pos_hint: {"center_x":0.5,"y":0.48}            
         
         FloatLayout:
 
             MDTextField:
-                icon_right: "account"  
+                id: user                
                 hint_text: "Insira seu usuario do Insta"
-                id: user
-                size_hint: (0.4,0.09)
+                icon_right: "account"  
+                size_hint: (0.5,0.09)
                 pos_hint:{"center_x":0.5, "y":0.35}
                 
             MDTextField:
-                hint_text: "Insira sua senha"
                 id: key
-                size_hint: (0.4,0.09)
+                hint_text: "Insira sua senha"
+                icon_right: "key"
+                size_hint: (0.5,0.09)
                 pos_hint:{"center_x":0.5, "y":0.25}
+                password: True
 
         MDRoundFlatIconButton:
             icon: "login"
             font_size: 22
             text: "Login"
-            size_hint: (0.4,0.09)
             pos_hint:{"center_x":0.5, "y":0.1}
             on_release: root.Login()    
 
-
-
-
-
 <InputScreen>:
     name:"input"
-
-    # canvas.before:
-    #     Color:
-    #         rgba: 1, 1, 1, 1
-    #     Rectangle:
-    #         pos: self.pos
-    #         size: self.size
+    hashtag: hashtag
+    date: date
+    qtd: qtd
+    file_text: file_text
     FloatLayout:
         cols: 1
         
         Image:
             source: 'stollker logo.png'
-            size_hint: 0.35,0.35
+            size_hint: (0.35,0.35)
             pos_hint: {"center_x":0.5,"y":0.63}            
+        
         FloatLayout:
 
             MDTextField:
+                id: hashtag                
                 hint_text: "Insira a hashtag desejada"
                 icon_right: "instagram"
-                id: user
                 size_hint: (0.6,0.09)
                 pos_hint:{"center_x":0.5, "y":0.53}
-                
+           
             MDTextField:
-                hint_text: "Insira a data da publicação hashtag"
-                id: key
-                size_hint: (0.6,0.09)
-                pos_hint:{"center_x":0.5, "y":0.43}
-
-            MDTextField:
+                input_filter: "int"
+                id: qtd
+                icon_right: "post-outline"
                 hint_text: "Insira quantidade de posts"
-                id: key
                 size_hint: (0.6,0.09)
-                pos_hint:{"center_x":0.5, "y":0.33} 
+                pos_hint:{"center_x":0.5, "y":0.43} 
+            
+            MDRoundFlatIconButton:
+                id: date
+                font_size: 20    
+                text: "Insira a data da publicação"
+                pos_hint:{"center_x":0.5, "y":0.32}
+                icon:"calendar"                
+                on_release: root.show_time_picker()   
 
             MDRoundFlatIconButton:
+                id: file_text
                 font_size: 20                
                 text: "Escolha a imagem de fundo"
                 icon:"folder"                
-                size_hint: (0.4,0.08)
-                pos_hint:{"center_x":0.5, "y":0.20}
+                pos_hint:{"center_x":0.5, "y":0.19}
+                on_release: root.FileInput()
 
         FloatLayout:
 
@@ -104,16 +95,15 @@ WindowManager:
                 font_size: 20
                 text: "Voltar"
                 icon: "arrow-left-bold-circle-outline"
-                size_hint: (0.16,0.09)
                 pos_hint:{"center_x":0.4, "y":0.05}
+                on_release: root.Back()
             MDRoundFlatIconButton:
                 font_size: 20
                 icon: "arrow-right-bold-circle-outline"
                 text: "Avançar"
-                size_hint: (0.16,0.09)
                 pos_hint:{"center_x":0.6, "y":0.05}
+                on_release: root.ImagesPicker()
    
-
-<ImamgesScreen>:
+<ImagesScreen>:
     name:"images"
             

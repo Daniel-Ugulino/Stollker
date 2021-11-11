@@ -41,7 +41,7 @@ class InputScreen(Screen):
     def ImagesPicker(self):
         hashtag = self.hashtag.text
         qtd = self.qtd.text
-        get_images = insta_D.ByHashtag(str(hashtag), qtd)
+        get_images = insta_D.ByHashtag(str(hashtag), int(qtd))
         if(get_images == True):
             sm.current = "images"
         else:

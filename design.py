@@ -24,18 +24,23 @@ class LoginScreen(Screen):
         else:
             print(login)
 
-
 class InputScreen(Screen):
     hashtag = ObjectProperty(None)
-    date = ObjectProperty(None)
+    dia = ObjectProperty(None)
     qtd = ObjectProperty(None)
     file_text = ObjectProperty(None)
 
     def Back(self):
         sm.current = "login"
 
+    def on_save(self,instance, value, date_range):
+        day = value.strftime("%d/%m/%Y")
+        print(type(day))
+        self.dia.text = day
+        
     def show_time_picker(self):
         date_dialog = MDDatePicker()
+        date_dialog.bind(on_save=self.on_save)
         date_dialog.open()      
 
     def ImagesPicker(self):
@@ -63,7 +68,6 @@ class InputScreen(Screen):
         except Exception as e:
             print(e)
 
-
 class ImagesScreen(Screen):
     pass
 
@@ -74,13 +78,19 @@ sm = WindowManager()
 
 class MyApp(MDApp):
     def build(self):
+        
+        self.icon = "stollker logo.png"
+        self.title = "Stollker"
+
+        self.theme_cls.primary_palette = "Blue"
+        self.theme_cls.primary_hue = "600"
         kv = Builder.load_file("desing.kv")
 
         screens = [LoginScreen(name="login"), InputScreen(
             name="input"), ImagesScreen(name="images")]
         for screen in screens:
             sm.add_widget(screen)
-        sm.current = "login"
+        sm.current = "input"
         return sm
 
 if __name__ == "__main__":

@@ -5,14 +5,22 @@
 
     FloatLayout:
         cols: 1
-
+        
+        orientation: 'horizontal'
+        canvas:
+            Rectangle:
+                source: 'images.jpg'
+                size: self.size
+                pos: self.pos
         MDLabel:
             theme_text_color: "Custom"
-            text_color: (0, 1, 0, .4)
-            font_style: "H4"
-            text: "STOLLKER"
+            font_size: 40
+            text: "STOLLkerr"
             halign: "center"
-            pos_hint: {"y":0.43}  
+            pos_hint: {"y":0.43}
+            font_name: 'Major_Mono_Display/MajorMonoDisplay-Regular.ttf'
+            text_color: 0,0.2,0.5,1
+        
         Image:
             source: 'stollker logo.png'
             size_hint: (0.35,0.35)
@@ -22,11 +30,11 @@
 
             MDTextField:
                 id: user                
-                hint_text: "Insira seu usuario do Insta"
+                hint_text: "Insira seu usuario do Instagram"
                 icon_right: "account"  
                 size_hint: (0.5,0.09)
                 pos_hint:{"center_x":0.5, "y":0.35}
-                
+            
             MDTextField:
                 id: key
                 hint_text: "Insira sua senha"
@@ -34,6 +42,7 @@
                 size_hint: (0.5,0.09)
                 pos_hint:{"center_x":0.5, "y":0.25}
                 password: True
+                
 
         MDRoundFlatIconButton:
             icon: "login"
@@ -43,11 +52,21 @@
             on_release: root.Login()    
 
 <InputScreen>:
+    
     name:"input"
     hashtag: hashtag
-    date: date
+    dia: dia
     qtd: qtd
     file_text: file_text
+ 
+    orientation: 'horizontal'
+    canvas:
+        Rectangle:
+            source: 'images.jpg'
+            size: self.size
+            pos: self.pos
+
+
     FloatLayout:
         cols: 1
         
@@ -64,23 +83,23 @@
                 icon_right: "instagram"
                 size_hint: (0.6,0.09)
                 pos_hint:{"center_x":0.5, "y":0.53}
-           
+
             MDTextField:
-                input_filter: "int"
                 id: qtd
+                input_filter: "int"
                 icon_right: "post-outline"
                 hint_text: "Insira quantidade de posts"
                 size_hint: (0.6,0.09)
                 pos_hint:{"center_x":0.5, "y":0.43} 
-            
+
             MDRoundFlatIconButton:
-                id: date
+                id: dia
                 font_size: 20    
                 text: "Insira a data da publicação"
                 pos_hint:{"center_x":0.5, "y":0.32}
                 icon:"calendar"                
                 on_release: root.show_time_picker()   
-
+                
             MDRoundFlatIconButton:
                 id: file_text
                 font_size: 20                

@@ -6,12 +6,6 @@
     FloatLayout:
         cols: 1
         
-        orientation: 'horizontal'
-        canvas:
-            Rectangle:
-                source: 'images.jpg'
-                size: self.size
-                pos: self.pos
         MDLabel:
             theme_text_color: "Custom"
             font_size: 40
@@ -58,14 +52,6 @@
     dia: dia
     qtd: qtd
     file_text: file_text
- 
-    orientation: 'horizontal'
-    canvas:
-        Rectangle:
-            source: 'images.jpg'
-            size: self.size
-            pos: self.pos
-
 
     FloatLayout:
         cols: 1
@@ -83,6 +69,7 @@
                 icon_right: "instagram"
                 size_hint: (0.6,0.09)
                 pos_hint:{"center_x":0.5, "y":0.53}
+                required: True
 
             MDTextField:
                 id: qtd
@@ -98,7 +85,8 @@
                 text: "Insira a data da publicação"
                 pos_hint:{"center_x":0.5, "y":0.32}
                 icon:"calendar"                
-                on_release: root.show_time_picker()   
+                on_release: root.show_time_picker()
+                required: True                  
                 
             MDRoundFlatIconButton:
                 id: file_text
@@ -107,6 +95,7 @@
                 icon:"folder"                
                 pos_hint:{"center_x":0.5, "y":0.19}
                 on_release: root.FileInput()
+                required: True
 
         FloatLayout:
 

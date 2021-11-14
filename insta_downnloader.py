@@ -32,7 +32,6 @@ class insta_D():
             qtd_total = hashtag1.dict()
             qtd_total = int(qtd_total["media_count"])
             if (int(qtd_total) >= 500):
-                print("cu")
                 qtd_total = 500
             print("Coletando imagens")
             print(qtd_total)
@@ -82,7 +81,7 @@ class insta_D():
                     hashtags + "_fotos_" + str(i + 1)), folder=photo_folder)
                 print(f"Imagem {i+1} da {hashtags} baixada")
 
-            return(True)
+            return[True, photo_folder]
 
         except Exception as e:
             return(e)

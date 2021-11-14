@@ -1,3 +1,4 @@
+
 from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -8,8 +9,12 @@ from kivymd.uix.picker import MDDatePicker
 from insta_downnloader import insta_D
 from PIL import Image
 import easygui
+import glob
 from googletrans import Translator
 
+translator = Translator()
+# global folder 
+# folder = ""
 # https://www.techwithtim.net/tutorials/kivy-tutorial/floatlayout/
 def show_alert_dialog(self,erro):
     
@@ -26,12 +31,11 @@ def show_alert_dialog(self,erro):
     self.dialog.open()
 
 
-
 class LoginScreen(Screen):
     def close_dialog(self,erro):
         self.dialog.dismiss()
-
     dialog = None
+
     user = ObjectProperty(None)
     key = ObjectProperty(None)
 
@@ -42,15 +46,14 @@ class LoginScreen(Screen):
         if (login == True):
             sm.current = "input"
         else:
-            # retorno = login
-            # error = Translator.translate(str(retorno), dest="pt-br")
-            show_alert_dialog(self,login)
+            error = translator.translate(login, dest='pt')
+            show_alert_dialog(self,error.text)
 
 class InputScreen(Screen):
     def close_dialog(self,erro):
         self.dialog.dismiss()
-
     dialog = None
+
     hashtag = ObjectProperty(None)
     dia = ObjectProperty(None)
     qtd = ObjectProperty(None)
@@ -75,11 +78,13 @@ class InputScreen(Screen):
         if dia == "Insira a data da publicação":
             dia = ""
         get_images = insta_D.ByHashtag(str(hashtag), int(qtd), dia)
-        if(get_images == True):
+        if(get_images[0] == True):
             sm.current = "images"
+            global folder
+            folder = get_images[1]
         else:
-            # error = Translator.translate(str(get_images), dest="pt-br")
-            show_alert_dialog(self,get_images)
+            error = translator.translate(get_images, dest='pt')
+            show_alert_dialog(self,error.text)
 
     def FileInput(self):
         file = easygui.fileopenbox()
@@ -96,8 +101,20 @@ class InputScreen(Screen):
         except Exception as e:
             print(e)
 
+
+
 class ImagesScreen(Screen):
-    pass
+    carrousel = ObjectProperty(None)
+
+    # def add_pictures(self, base_widget):
+    #     self.carousel = self.ids['carrousel']
+    #     current_folder = (glob.glob("./temp_cat/*.jpg"))
+    #     for i in range(len(current_folder)):
+    #         def sla():
+                
+    #         pass
+    #     self.carousel.aadd_widget()
+    # pass
 
 class WindowManager(ScreenManager):
     pass
@@ -106,7 +123,6 @@ sm = WindowManager()
 
 class MyApp(MDApp):
     def build(self):
-        
         self.icon = "stollker logo.png"
         self.title = "Stollker"
 
@@ -118,7 +134,7 @@ class MyApp(MDApp):
             name="input"), ImagesScreen(name="images")]
         for screen in screens:
             sm.add_widget(screen)
-        sm.current = "login"
+        sm.current = "images"
         return sm
 
 if __name__ == "__main__":

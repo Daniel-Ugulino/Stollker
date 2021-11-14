@@ -114,4 +114,43 @@
    
 <ImagesScreen>:
     name:"images"
-            
+    carrousel:carrousel
+    FloatLayout:
+        cols: 1
+        
+        MDRoundFlatIconButton:
+            font_size: 20
+            icon: "arrow-left-bold-circle-outline"
+            text: "Voltar"
+            pos_hint:{"center_x":0.4, "y":0.05}
+            on_release: root.ImagesPicker()
+        MDRoundFlatIconButton:
+            font_size: 20
+            icon: "printer"
+            text: "Avançar"
+            pos_hint:{"center_x":0.6, "y":0.05}
+            on_release: root.ImagesPicker()    
+        MDCarousel:
+            id: carrousel
+            direction: "right"
+            MDFloatLayout:
+                MDCard:
+                    # size_hint:0.4,0.7
+                    pos_hint: {"center_x":0.5, "y":0.2}
+                    Image:
+                        size:self.width / 10,self.height / 10
+                        source:"banner.jpg"
+            # MDCard:
+            #     pos_hint:{"center_x:":0.5,"y":0.2}
+            #     Image:
+            #         source:"banner.jpg"
+            # MDCard:
+            #     size_hint: (0.3,0.3)
+            #     pos_hint:{"center_x":0.5, "center_y":0.7}
+            #     Image:
+            #         source:"\temp_cat\EDC-768x512.jpg"
+
+
+        
+
+    

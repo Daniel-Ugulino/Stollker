@@ -118,10 +118,10 @@
     # carrousel:carrousel
     FloatLayout:
         cols: 1
-        # Image:
-        #     pos_hint:{"center_x":0.5,"y":0.22}
-        #     size_hint:0.5,0.7
-        #     source:"banner.jpg"
+        Image:
+            pos_hint:{"center_x":0.5,"y":0.22}
+            size_hint:0.5,0.7
+            source:"banner.jpg"
         MDRoundFlatIconButton:
             font_size: 20
             icon: "arrow-left-bold-circle-outline"
@@ -134,20 +134,16 @@
             text: "Avançar"
             pos_hint:{"center_x":0.6, "y":0.05}
             on_release: root.ImagesPicker()    
-        # MDCarousel:
-        #     id: carrousel
-        #     direction: "right"
-        #     Image:
-        #         size_hint:0.4,0.4
-        #         pos_hint:{"center_x":0.5,"y":0.43}
-        #         source:"./temp_fluzudo/fluzudo_fotos_2.jpg"
-                # source:"banner.jpg"
-                # MDCard:
-                #     size_hint: (0.3,0.3)
-                #     pos_hint:{"center_x":0.5, "center_y":0.7}
-                #     Image:
-                #         source:"\temp_cat\EDC-768x512.jpg"
-
+        MDCarousel:
+            id: carrousel
+            direction: "right"
+            # FloatLayout:
+            #     MDCard:
+            #         size_hint:0.30175,0.4465
+            #         pos_hint:{"center_x":0.5,"y":0.44}
+            #         FitImage:
+            #             size_hint_y: 1
+            #             source:"./temp_casamentothiagoealessandra/casamentothiagoealessandra_fotos_2.jpg"
 
         
 

@@ -26,6 +26,7 @@ class insta_D():
 
         # print("Coletando imagens")
         urls = []
+        dates = []
         try:
             print("Coletando dados")
             hashtag1 = cl.hashtag_info(hashtags)
@@ -40,11 +41,12 @@ class insta_D():
             for i in range(len(data)):
                 # print(i)
                 data_obj = data[i].dict()
+                day_taken = data_obj["taken_at"].date()
                 if (day_selected != ""):
-                    day_taken = data_obj["taken_at"].date()
-                    day_taken = day_taken.strftime("%d/%m/%Y")
+                    day_taken_formated = day_taken.strftime("%d/%m/%Y")
+                    dates.append(day_taken)
                     # print(day_taken,day_selected)
-                    if(day_selected == day_taken):
+                    if(day_selected == day_taken_formated):
                         data_url = str(data_obj["thumbnail_url"])
                         if(data_url != "None"):
                             data_url = data_url.replace("HttpUrl(", "")
@@ -57,6 +59,7 @@ class insta_D():
                                 res1 = res[j]
                                 urls.append(str(res1["thumbnail_url"]))
                 else:
+                    dates.append(day_taken)
                     data_url = str(data_obj["thumbnail_url"])
                     if(data_url != "None"):
                         data_url = data_url.replace("HttpUrl(", "")
@@ -77,11 +80,11 @@ class insta_D():
                 os.makedirs(photo_folder)
             
             for i in range(qtd):
+                print(dates[i])
                 cl.photo_download_by_url(url=urls[i], filename=(
-                    hashtags + "_fotos_" + str(i + 1)), folder=photo_folder)
+                    hashtags + "_fotos_" + dates[i]), folder=photo_folder)
                 # print(f"Imagem {i+1} da {hashtags} baixada")
 
-            result = True
             return(str(photo_folder))
 
         except Exception as e:

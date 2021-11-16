@@ -1,3 +1,5 @@
+from kivy.uix.floatlayout import FloatLayout
+from kivy.utils import QueryDict
 from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -7,6 +9,8 @@ from kivymd.uix.dialog import MDDialog
 from kivymd.uix.picker import MDDatePicker
 from kivy.uix.carousel import Carousel
 from kivy.uix.image import Image as CoreImage
+from kivymd.uix.card import MDCard
+from kivymd.utils.fitimage import FitImage
 from insta_downnloader import insta_D
 from PIL import Image
 import easygui
@@ -22,6 +26,7 @@ translator = Translator()
 # global folder 
 # folder = ""
 # https://www.techwithtim.net/tutorials/kivy-tutorial/floatlayout/
+
 def show_alert_dialog(self,erro):
     
     # sla = self.dialog.dismiss(force=True)
@@ -59,7 +64,6 @@ class InputScreen(Screen):
     def close_dialog(self,erro):
         self.dialog.dismiss()
     dialog = None
-
     hashtag = ObjectProperty(None)
     dia = ObjectProperty(None)
     qtd = ObjectProperty(None)
@@ -113,19 +117,27 @@ class InputScreen(Screen):
 
 class ImagesScreen(Screen):
     # print(folder,hashtag)
+
     def add_pictures(self, **kwargs):
         super(ImagesScreen, self)
         self.carousel = Carousel(direction="right")
+
         # self.carousel = self.ids['carrousel']
         qtd_folder = (glob.glob(f"./temp_{hashtag}/*.jpg"))
+        # print(qtd_folder)
         for i in range(len(qtd_folder)):
-            # print(i)
             file = (f"{folder}/{hashtag}_fotos_{i+1}.jpg")
-            # print(file)
-            img = CoreImage(source=file,size_hint=(0.6,0.6),pos_hint={"center_x":0.5,"y":0.25})
-            self.carousel.add_widget(img)
+            # self.carousel.add_widget(FloatLayout)
+            card =  MDCard(size_hint=(0.30175,0.4465), pos_hint={"center_x":0.5,"y":0.44})
+            img = FitImage(size_hint_y= 1, source=file)
+            card.add_widget(img)
+            print(i)
+            # img = CoreImage(source=file,size_hint=(0.6,0.6),pos_hint={"center_x":0.5,"y":0.25})
+            self.carousel.add_widget(card)
+
         self.add_widget(self.carousel)
-    
+
+    pass
 
 # ImagesScreen.add_widget(add_pictures())
 

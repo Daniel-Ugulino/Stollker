@@ -1,4 +1,3 @@
-
 from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -6,11 +5,18 @@ from kivy.properties import ObjectProperty
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.picker import MDDatePicker
+from kivy.uix.carousel import Carousel
+from kivy.uix.image import Image as CoreImage
 from insta_downnloader import insta_D
 from PIL import Image
 import easygui
 import glob
 from googletrans import Translator
+
+# global hashtag
+hashtag = ""
+# global folder
+folder = ""
 
 translator = Translator()
 # global folder 
@@ -72,16 +78,18 @@ class InputScreen(Screen):
         date_dialog.open()      
 
     def ImagesPicker(self):
+        global hashtag
         hashtag = self.hashtag.text
         qtd = self.qtd.text
         dia = self.dia.text
         if dia == "Insira a data da publicação":
             dia = ""
         get_images = insta_D.ByHashtag(str(hashtag), int(qtd), dia)
-        if(get_images[0] == True):
+        global folder
+        if(get_images != ""):
             sm.current = "images"
-            global folder
-            folder = get_images[1]
+            # print(get_images)
+            folder = get_images
         else:
             error = translator.translate(get_images, dest='pt')
             show_alert_dialog(self,error.text)
@@ -104,17 +112,22 @@ class InputScreen(Screen):
 
 
 class ImagesScreen(Screen):
-    carrousel = ObjectProperty(None)
+    # print(folder,hashtag)
+    def add_pictures(self, **kwargs):
+        super(ImagesScreen, self)
+        self.carousel = Carousel(direction="right")
+        # self.carousel = self.ids['carrousel']
+        qtd_folder = (glob.glob(f"./temp_{hashtag}/*.jpg"))
+        for i in range(len(qtd_folder)):
+            # print(i)
+            file = (f"{folder}/{hashtag}_fotos_{i+1}.jpg")
+            # print(file)
+            img = CoreImage(source=file,size_hint=(0.6,0.6),pos_hint={"center_x":0.5,"y":0.25})
+            self.carousel.add_widget(img)
+        self.add_widget(self.carousel)
+    
 
-    # def add_pictures(self, base_widget):
-    #     self.carousel = self.ids['carrousel']
-    #     current_folder = (glob.glob("./temp_cat/*.jpg"))
-    #     for i in range(len(current_folder)):
-    #         def sla():
-                
-    #         pass
-    #     self.carousel.aadd_widget()
-    # pass
+# ImagesScreen.add_widget(add_pictures())
 
 class WindowManager(ScreenManager):
     pass
@@ -134,7 +147,7 @@ class MyApp(MDApp):
             name="input"), ImagesScreen(name="images")]
         for screen in screens:
             sm.add_widget(screen)
-        sm.current = "images"
+        sm.current = "login"
         return sm
 
 if __name__ == "__main__":

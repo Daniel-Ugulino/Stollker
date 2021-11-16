@@ -38,12 +38,12 @@ class insta_D():
             data = cl.hashtag_medias_recent(hashtags, amount=qtd_total)
             
             for i in range(len(data)):
-                print(i)
+                # print(i)
                 data_obj = data[i].dict()
                 if (day_selected != ""):
                     day_taken = data_obj["taken_at"].date()
                     day_taken = day_taken.strftime("%d/%m/%Y")
-                    print(day_taken,day_selected)
+                    # print(day_taken,day_selected)
                     if(day_selected == day_taken):
                         data_url = str(data_obj["thumbnail_url"])
                         if(data_url != "None"):
@@ -79,9 +79,10 @@ class insta_D():
             for i in range(qtd):
                 cl.photo_download_by_url(url=urls[i], filename=(
                     hashtags + "_fotos_" + str(i + 1)), folder=photo_folder)
-                print(f"Imagem {i+1} da {hashtags} baixada")
+                # print(f"Imagem {i+1} da {hashtags} baixada")
 
-            return[True, photo_folder]
+            result = True
+            return(str(photo_folder))
 
         except Exception as e:
             return(e)

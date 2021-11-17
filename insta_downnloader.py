@@ -81,11 +81,14 @@ class insta_D():
                 # count += 1
                 # photo_folder = "./temp_" + str(count) + "_" + hashtags
                 os.makedirs(photo_folder)
-            
+            print(len(dates))
+            print(qtd)
             for i in range(qtd):
-                print(dates[i])
                 dates_formated = str(dates[i])
                 dates_formated = dates_formated.replace(':',"_")
+                dates_formated = dates_formated.replace(' ',"_")
+                dates_formated = dates_formated.replace('+',"_")
+
                 cl.photo_download_by_url(url=urls[i], filename= (
                     hashtags + "_fotos_" + str(dates_formated) ), folder=photo_folder)
                 # print(f"Imagem {i+1} da {hashtags} baixada")

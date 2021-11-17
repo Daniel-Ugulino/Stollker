@@ -1,5 +1,3 @@
-from kivy.uix.floatlayout import FloatLayout
-from kivy.utils import QueryDict
 from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -7,20 +5,17 @@ from kivy.properties import ObjectProperty
 from kivymd.uix.button import MDFlatButton, MDRoundFlatIconButton
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.picker import MDDatePicker
-from kivy.uix.carousel import Carousel
-from kivy.uix.image import Image as CoreImage
 from kivymd.uix.card import MDCard
 from kivymd.utils.fitimage import FitImage
 from insta_downnloader import insta_D
 from PIL import Image
 import easygui
 import glob
+import win32print
+import win32api
 from googletrans import Translator
-
 # global hashtag
 hashtag = ""
-# global folder
-folder = ""
 
 translator = Translator()
 # global folder 
@@ -28,7 +23,6 @@ translator = Translator()
 # https://www.techwithtim.net/tutorials/kivy-tutorial/floatlayout/
 
 def show_alert_dialog(self,erro):
-    
     # sla = self.dialog.dismiss(force=True)
     if not self.dialog:
         self.dialog = MDDialog(
@@ -90,6 +84,7 @@ class InputScreen(Screen):
             dia = ""
         get_images = insta_D.ByHashtag(str(hashtag), int(qtd), dia)
         global folder
+        print(get_images)
         if(get_images == True):
             sm.current = "images"
             # print(get_images)
@@ -118,36 +113,62 @@ class InputScreen(Screen):
 
 class ImagesScreen(Screen):
     # print(folder,hashtag)
+  
+    def add_pictures(self):
+        # self.carousel = Carousel(direction="right")
+          
+        def Back():
+            sm.current = "input"
 
-    def Back(self):
-        sm.current = "input"
-
-    def add_pictures(self, **kwargs):
-        
-        super(ImagesScreen, self)
-        self.carousel = Carousel(direction="right")
-        
-        # self.carousel = self.ids['carrousel']
+        self.carousel = self.ids['carrousel']
         files = (glob.glob(f"./temp_focanomil/*.jpg"))
-        print(files)
         for i in range(len(files)):
             # self.carousel.add_widget(FloatLayout)
             card =  MDCard(size_hint=(0.30190,0.4465), pos_hint={"center_x":0.5,"y":0.44})
             img = FitImage(size_hint_y= 1, source=files[i])
-           
-
+            print(img.source)
             card.add_widget(img)
-            print(i)
+            # print(i)
             # img = CoreImage(source=file,size_hint=(0.6,0.6),pos_hint={"center_x":0.5,"y":0.25})
             self.carousel.add_widget(card)
         # o bug ta aqui embaixo
-        # self.button1 = MDRoundFlatIconButton(font_size=20,icon="arrow-left-bold-circle-outline",text="Voltar",pos_hint={"center_x":0.4, "y":0.05},on_release=self.Back())
-        # self.button2 = MDRoundFlatIconButton(font_size=20,icon="printer",text="Imprimir",pos_hint={"center_x":0.6, "y":0.05})
-        self.add_widget(self.carousel)
-        self.add_widget(self.button1)
-        self.add_widget(self.button2)
+        # self.add_widget(self.carousel)
 
-    pass
+        
+        # self.button1 = MDRoundFlatIconButton(font_size=20,icon="arrow-left-bold-circle-outline",text="Voltar",pos_hint={"center_x":0.4, "y":0.05},on_release=Back())
+        # self.button2 = MDRoundFlatIconButton(font_size=20,icon="printer",text="Imprimir",pos_hint={"center_x":0.6, "y":0.05})
+        # self.add_widget(self.button1)
+        # self.add_widget(self.button2)
+    
+    def printFile(self):
+        self.carousel = self.ids['carrousel']
+        sla = self.carousel.current_slide    
+        #ta en sla.chldren.0.source
+        #parte pra imprimir: funciona
+
+        # banner = Image.open("banner.jpg")
+        # img = Image.open("./temp_fluminense/fluminense_fotos_2021-11-17_12_00_13_00_00.jpg")
+        # img_2 = img.resize((367,409))
+        # full_img = banner.copy()
+        # full_img.paste(img_2,(56,31))
+        # full_img.save("print.jpg")
+        # photo_path = "print.jpg"
+        # defprt = win32print.GetDefaultPrinter()
+        # prt = win32print.SetDefaultPrinter(defprt)
+        # win32api.ShellExecute(0, "print", photo_path, None, None, 0)
+
+        #parte a fazer: criar arquivo csv
+
+        # with open('persons.csv', 'wb') as csvfile:
+        #     filewriter = csv.writer(csvfile, delimiter=',',
+        #                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        #     filewriter.writerow(['Name', 'Profession'])
+        #     filewriter.writerow(['Derek', 'Software Developer'])
+        #     filewriter.writerow(['Steve', 'Software Developer'])
+        #     filewriter.writerow(['Paul', 'Manager'])
+        # os.remove(img_path)
+        # full_img.show()
+    
 
 # ImagesScreen.add_widget(add_pictures())
 

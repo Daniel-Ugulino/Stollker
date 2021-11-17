@@ -127,13 +127,13 @@
             icon: "arrow-left-bold-circle-outline"
             text: "Voltar"
             pos_hint:{"center_x":0.4, "y":0.05}
-            on_release: root.ImagesPicker()
+            on_release: root.Back()
         MDRoundFlatIconButton:
             font_size: 20
             icon: "printer"
-            text: "Avançar"
+            text: "Imprimir"
             pos_hint:{"center_x":0.6, "y":0.05}
-            on_release: root.ImagesPicker()    
+            on_release: root.Back()
         MDCarousel:
             id: carrousel
             direction: "right"

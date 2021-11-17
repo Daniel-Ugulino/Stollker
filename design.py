@@ -4,7 +4,7 @@ from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty
-from kivymd.uix.button import MDFlatButton
+from kivymd.uix.button import MDFlatButton, MDRoundFlatIconButton
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.picker import MDDatePicker
 from kivy.uix.carousel import Carousel
@@ -90,10 +90,11 @@ class InputScreen(Screen):
             dia = ""
         get_images = insta_D.ByHashtag(str(hashtag), int(qtd), dia)
         global folder
-        if(get_images != ""):
+        if(get_images == True):
             sm.current = "images"
             # print(get_images)
-            folder = get_images
+            # folder = get_images
+            # print(folder)
         else:
             error = translator.translate(get_images, dest='pt')
             show_alert_dialog(self,error.text)
@@ -118,24 +119,33 @@ class InputScreen(Screen):
 class ImagesScreen(Screen):
     # print(folder,hashtag)
 
+    def Back(self):
+        sm.current = "input"
+
     def add_pictures(self, **kwargs):
+        
         super(ImagesScreen, self)
         self.carousel = Carousel(direction="right")
-
+        
         # self.carousel = self.ids['carrousel']
-        qtd_folder = (glob.glob(f"./temp_{hashtag}/*.jpg"))
-        # print(qtd_folder)
-        for i in range(len(qtd_folder)):
-            file = (f"{folder}/{hashtag}_fotos_{i+1}.jpg")
+        files = (glob.glob(f"./temp_focanomil/*.jpg"))
+        print(files)
+        for i in range(len(files)):
             # self.carousel.add_widget(FloatLayout)
-            card =  MDCard(size_hint=(0.30175,0.4465), pos_hint={"center_x":0.5,"y":0.44})
-            img = FitImage(size_hint_y= 1, source=file)
+            card =  MDCard(size_hint=(0.30190,0.4465), pos_hint={"center_x":0.5,"y":0.44})
+            img = FitImage(size_hint_y= 1, source=files[i])
+           
+
             card.add_widget(img)
             print(i)
             # img = CoreImage(source=file,size_hint=(0.6,0.6),pos_hint={"center_x":0.5,"y":0.25})
             self.carousel.add_widget(card)
-
+        # o bug ta aqui embaixo
+        # self.button1 = MDRoundFlatIconButton(font_size=20,icon="arrow-left-bold-circle-outline",text="Voltar",pos_hint={"center_x":0.4, "y":0.05},on_release=self.Back())
+        # self.button2 = MDRoundFlatIconButton(font_size=20,icon="printer",text="Imprimir",pos_hint={"center_x":0.6, "y":0.05})
         self.add_widget(self.carousel)
+        self.add_widget(self.button1)
+        self.add_widget(self.button2)
 
     pass
 
@@ -159,7 +169,7 @@ class MyApp(MDApp):
             name="input"), ImagesScreen(name="images")]
         for screen in screens:
             sm.add_widget(screen)
-        sm.current = "login"
+        sm.current = "images"
         return sm
 
 if __name__ == "__main__":

@@ -2,7 +2,7 @@ import os
 from instagrapi import Client
 import win32print
 import win32api
-from datetime import datetime
+from datetime import date, datetime
 
 cl = Client()
 
@@ -41,10 +41,14 @@ class insta_D():
             for i in range(len(data)):
                 # print(i)
                 data_obj = data[i].dict()
-                day_taken = data_obj["taken_at"].date()
+                day_taken_formated = data_obj["taken_at"].date() 
+
+                day_taken = data_obj["taken_at"]
+
+                dates.append(day_taken)
+
                 if (day_selected != ""):
-                    day_taken_formated = day_taken.strftime("%d/%m/%Y")
-                    dates.append(day_taken)
+                    day_taken_formated = day_taken_formated.strftime("%d/%m/%Y")
                     # print(day_taken,day_selected)
                     if(day_selected == day_taken_formated):
                         data_url = str(data_obj["thumbnail_url"])
@@ -59,7 +63,6 @@ class insta_D():
                                 res1 = res[j]
                                 urls.append(str(res1["thumbnail_url"]))
                 else:
-                    dates.append(day_taken)
                     data_url = str(data_obj["thumbnail_url"])
                     if(data_url != "None"):
                         data_url = data_url.replace("HttpUrl(", "")
@@ -81,11 +84,13 @@ class insta_D():
             
             for i in range(qtd):
                 print(dates[i])
-                cl.photo_download_by_url(url=urls[i], filename=(
-                    hashtags + "_fotos_" + dates[i]), folder=photo_folder)
+                dates_formated = str(dates[i])
+                dates_formated = dates_formated.replace(':',"_")
+                cl.photo_download_by_url(url=urls[i], filename= (
+                    hashtags + "_fotos_" + str(dates_formated) ), folder=photo_folder)
                 # print(f"Imagem {i+1} da {hashtags} baixada")
 
-            return(str(photo_folder))
+            return(True)
 
         except Exception as e:
             return(e)

@@ -113,15 +113,34 @@ class InputScreen(Screen):
 
 class ImagesScreen(Screen):
     # print(folder,hashtag)
-  
-    def add_pictures(self):
-        # self.carousel = Carousel(direction="right")
-          
-        def Back():
+    def Back(self,obj):
             sm.current = "input"
 
+    def get_current_img(self):
         self.carousel = self.ids['carrousel']
-        files = (glob.glob(f"./temp_focanomil/*.jpg"))
+        sla = self.carousel.current_slide   
+        global current_img
+        current_img = sla.children[0].source
+        #parte pra imprimir: funciona
+
+        
+    def print_file(self,obj):
+        banner = Image.open("banner.jpg")
+        img = Image.open(current_img)
+        img_2 = img.resize((367,409))
+        full_img = banner.copy()
+        full_img.paste(img_2,(56,31))
+        full_img.save("print.jpg")
+        photo_path = "print.jpg"
+        defprt = win32print.GetDefaultPrinter()
+        prt = win32print.SetDefaultPrinter(defprt)
+        win32api.ShellExecute(0, "print", photo_path, None, None, 0)
+
+
+    def add_pictures(self):
+        # self.carousel = Carousel(direction="right")
+        self.carousel = self.ids['carrousel']
+        files = (glob.glob(f"./temp_{hashtag}/*.jpg"))
         for i in range(len(files)):
             # self.carousel.add_widget(FloatLayout)
             card =  MDCard(size_hint=(0.30190,0.4465), pos_hint={"center_x":0.5,"y":0.44})
@@ -131,32 +150,12 @@ class ImagesScreen(Screen):
             # print(i)
             # img = CoreImage(source=file,size_hint=(0.6,0.6),pos_hint={"center_x":0.5,"y":0.25})
             self.carousel.add_widget(card)
-        # o bug ta aqui embaixo
-        # self.add_widget(self.carousel)
-
         
-        # self.button1 = MDRoundFlatIconButton(font_size=20,icon="arrow-left-bold-circle-outline",text="Voltar",pos_hint={"center_x":0.4, "y":0.05},on_release=Back())
-        # self.button2 = MDRoundFlatIconButton(font_size=20,icon="printer",text="Imprimir",pos_hint={"center_x":0.6, "y":0.05})
-        # self.add_widget(self.button1)
-        # self.add_widget(self.button2)
+        self.button1 = MDRoundFlatIconButton(font_size=20,icon="arrow-left-bold-circle-outline",text="Voltar",pos_hint={"center_x":0.4, "y":0.05},on_release=self.Back)
+        self.button2 = MDRoundFlatIconButton(font_size=20,icon="printer",text="Imprimir",pos_hint={"center_x":0.6, "y":0.05},on_release=self.print_file)
+        self.add_widget(self.button1)
+        self.add_widget(self.button2)
     
-    def printFile(self):
-        self.carousel = self.ids['carrousel']
-        sla = self.carousel.current_slide    
-        #ta en sla.chldren.0.source
-        #parte pra imprimir: funciona
-
-        # banner = Image.open("banner.jpg")
-        # img = Image.open("./temp_fluminense/fluminense_fotos_2021-11-17_12_00_13_00_00.jpg")
-        # img_2 = img.resize((367,409))
-        # full_img = banner.copy()
-        # full_img.paste(img_2,(56,31))
-        # full_img.save("print.jpg")
-        # photo_path = "print.jpg"
-        # defprt = win32print.GetDefaultPrinter()
-        # prt = win32print.SetDefaultPrinter(defprt)
-        # win32api.ShellExecute(0, "print", photo_path, None, None, 0)
-
         #parte a fazer: criar arquivo csv
 
         # with open('persons.csv', 'wb') as csvfile:
@@ -190,7 +189,7 @@ class MyApp(MDApp):
             name="input"), ImagesScreen(name="images")]
         for screen in screens:
             sm.add_widget(screen)
-        sm.current = "images"
+        sm.current = "login"
         return sm
 
 if __name__ == "__main__":

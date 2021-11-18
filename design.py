@@ -1,5 +1,6 @@
 from kivymd.app import MDApp
 from kivy.lang import Builder
+from kivy.uix.spinner import Spinner
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty
 from kivymd.uix.button import MDFlatButton, MDRoundFlatIconButton
@@ -35,6 +36,13 @@ def show_alert_dialog(self,erro):
             )
     self.dialog.open()
 
+# def show_spinner(self):
+#     # sla = self.dialog.dismiss(force=True)
+#     if not self.dialog:
+#         self.dialog = MDDialog(
+#             spiner = Spinner(size_hint=(0.5,0.5),pos_hint={"center_x":0.5,"y":0.5},active=True)
+#             )
+#     self.dialog.open()
 
 class LoginScreen(Screen):
     def close_dialog(self,erro):
@@ -45,6 +53,8 @@ class LoginScreen(Screen):
     key = ObjectProperty(None)
 
     def Login(self):
+        # show_spinner(self)
+        # self.add_widget()
         user = self.user.text
         key = self.key.text
         login = insta_D.Login(user, key)
@@ -58,6 +68,7 @@ class InputScreen(Screen):
     def close_dialog(self,erro):
         self.dialog.dismiss()
     dialog = None
+
     hashtag = ObjectProperty(None)
     dia = ObjectProperty(None)
     qtd = ObjectProperty(None)
@@ -75,7 +86,7 @@ class InputScreen(Screen):
         date_dialog.bind(on_save=self.on_save)
         date_dialog.open()      
 
-    def ImagesPicker(self):
+    def ImagesSelector(self):
         global hashtag
         hashtag = self.hashtag.text
         qtd = self.qtd.text
@@ -84,7 +95,7 @@ class InputScreen(Screen):
             dia = ""
         get_images = insta_D.ByHashtag(str(hashtag), int(qtd), dia)
         global folder
-        print(get_images)
+        # print(get_images)
         if(get_images == True):
             sm.current = "images"
             # print(get_images)
@@ -108,8 +119,6 @@ class InputScreen(Screen):
 
         except Exception as e:
             print(e)
-
-
 
 class ImagesScreen(Screen):
     # print(folder,hashtag)
@@ -140,12 +149,14 @@ class ImagesScreen(Screen):
     def add_pictures(self):
         # self.carousel = Carousel(direction="right")
         self.carousel = self.ids['carrousel']
+        self.carousel.clear_widgets()
         files = (glob.glob(f"./temp_{hashtag}/*.jpg"))
         for i in range(len(files)):
             # self.carousel.add_widget(FloatLayout)
             card =  MDCard(size_hint=(0.30190,0.4465), pos_hint={"center_x":0.5,"y":0.44})
+            # card =  MDCard(size_hint=(0.30190,0.4465), pos_hint={"center_x":0.5,"y":0.44})
             img = FitImage(size_hint_y= 1, source=files[i])
-            print(img.source)
+            # print(img.source)
             card.add_widget(img)
             # print(i)
             # img = CoreImage(source=file,size_hint=(0.6,0.6),pos_hint={"center_x":0.5,"y":0.25})
@@ -168,9 +179,6 @@ class ImagesScreen(Screen):
         # os.remove(img_path)
         # full_img.show()
     
-
-# ImagesScreen.add_widget(add_pictures())
-
 class WindowManager(ScreenManager):
     pass
 

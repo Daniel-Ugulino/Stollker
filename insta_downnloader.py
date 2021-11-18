@@ -34,18 +34,16 @@ class insta_D():
             qtd_total = int(qtd_total["media_count"])
             if (int(qtd_total) >= 500):
                 qtd_total = 500
+               
             print("Coletando imagens")
-            print(qtd_total)
+         
             data = cl.hashtag_medias_recent(hashtags, amount=qtd_total)
             
             for i in range(len(data)):
                 # print(i)
                 data_obj = data[i].dict()
                 day_taken_formated = data_obj["taken_at"].date() 
-
                 day_taken = data_obj["taken_at"]
-
-                dates.append(day_taken)
 
                 if (day_selected != ""):
                     day_taken_formated = day_taken_formated.strftime("%d/%m/%Y")
@@ -56,23 +54,27 @@ class insta_D():
                             data_url = data_url.replace("HttpUrl(", "")
                             data_url = data_url.replace("'", "")
                             urls.append(data_url)
+                            dates.append(day_taken)
                             
                         elif(data_url == "None"):
                             res = data_obj["resources"]
                             for j in range(len(res)):
                                 res1 = res[j]
                                 urls.append(str(res1["thumbnail_url"]))
+                                dates.append(day_taken)
                 else:
                     data_url = str(data_obj["thumbnail_url"])
                     if(data_url != "None"):
                         data_url = data_url.replace("HttpUrl(", "")
                         data_url = data_url.replace("'", "")
                         urls.append(data_url)
+                        dates.append(day_taken)
                     elif(data_url == "None"):
                         res = data_obj["resources"]
                         for j in range(len(res)):
                             res1 = res[j]
                             urls.append(str(res1["thumbnail_url"]))
+                            dates.append(day_taken)
 
             # count = 0
             photo_folder = "./temp_" + hashtags
@@ -81,8 +83,15 @@ class insta_D():
                 # count += 1
                 # photo_folder = "./temp_" + str(count) + "_" + hashtags
                 os.makedirs(photo_folder)
-            print(len(dates))
-            print(qtd)
+
+            if (qtd > qtd_total): qtd = qtd_total
+
+            if (qtd > len(urls) ): qtd = len(urls)
+
+            # print(qtd)
+            # print(len(dates))
+            # print(len(urls))
+
             for i in range(qtd):
                 dates_formated = str(dates[i])
                 dates_formated = dates_formated.replace(':',"_")

@@ -110,8 +110,31 @@
                 icon: "arrow-right-bold-circle-outline"
                 text: "Avançar"
                 pos_hint:{"center_x":0.6, "y":0.05}
-                on_release: root.ImagesPicker()
+                on_release: root.ImagesSelector()
    
 <ImagesScreen>:
     name:"images"
-            
+    banner_photo:banner_photo
+    on_enter: root.add_pictures()
+    # carrousel:carrousel
+    FloatLayout:
+        cols: 1
+        Image:
+            id:banner_photo
+            pos_hint:{"center_x":0.5,"y":0.22}
+            size_hint:0.5,0.7
+        MDCarousel:
+            id: carrousel
+            direction: "right"
+            on_slide_complete:root.get_current_img()
+            # FloatLayout:
+            #     MDCard:
+            #         size_hint:0.30175,0.4465
+            #         pos_hint:{"center_x":0.5,"y":0.44}
+            #         FitImage:
+            #             size_hint_y: 1
+            #             source:"./temp_casamentothiagoealessandra/casamentothiagoealessandra_fotos_2.jpg"
+
+        
+
+    

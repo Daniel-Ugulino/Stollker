@@ -114,14 +114,15 @@
    
 <ImagesScreen>:
     name:"images"
+    banner_photo:banner_photo
     on_enter: root.add_pictures()
     # carrousel:carrousel
     FloatLayout:
         cols: 1
         Image:
+            id:banner_photo
             pos_hint:{"center_x":0.5,"y":0.22}
             size_hint:0.5,0.7
-            source:"banner.jpg"
         MDCarousel:
             id: carrousel
             direction: "right"

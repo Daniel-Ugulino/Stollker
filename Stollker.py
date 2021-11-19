@@ -138,7 +138,7 @@ class ImagesScreen(Screen):
     def Back(self,obj):
         self.remove_widget(self.button1)
         self.remove_widget(self.button2)
-        self.banner_photo.source = ""
+        self.banner_photo.source = "" 
         sm.current = "input"
 
 
@@ -166,7 +166,7 @@ class ImagesScreen(Screen):
     def add_pictures(self):
         # self.carousel = Carousel(direction="right")
         self.banner_photo.source = "banner.jpg"
-
+        self.banner_photo.reload()
         self.carousel = self.ids['carrousel']
         self.carousel.clear_widgets()
         files = (glob.glob(f"./temp_{hashtag}/*.jpg"))
